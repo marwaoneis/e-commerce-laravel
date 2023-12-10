@@ -12,15 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shopping_carts', function (Blueprint $table) {
-            $table->id();
+            $table->id('cart_id');
+            $table->string('quantity');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('product_id')
+                  ->references('product_id')
+                  ->on('products')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+
+            $table->foreign('user_id')
+                  ->references('user_id')
+                  ->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('shopping_carts');
     }

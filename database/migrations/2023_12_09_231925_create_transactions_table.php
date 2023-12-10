@@ -12,8 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
+            $table->id('transaction_id');
+            $table->string('payment_method');
+            $table->dateTime('transaction_date')->nullable();
+            $table->string('transaction_status');
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('order_id')->references('order_id')->on('orders')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+            
+            $table->foreign('user_id')
+                  ->references('user_id')
+                  ->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
         });
     }
 

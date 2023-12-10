@@ -15,5 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/hello', function () {
-    echo "Welcome Marwa!";
+    echo "Hello Marwa from Get!";
+});
+
+Route::post('/posting-from-laravel', function () {
+    echo "Hello Marwa from Postman!";
 });
